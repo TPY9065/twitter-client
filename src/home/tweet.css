@@ -1,12 +1,13 @@
 #tweetCard {
   padding: 1%;
-  height: 70vh;
+  --max-height: 400px;
+  --max-width: 600px;
 }
 
 #tweet,
 #tweetEvent {
   width: 100%;
-  height: 100%;
+  max-height: var(--max-height);
 }
 
 #userIcon {
@@ -17,7 +18,7 @@
 #tweetContent {
   margin: 0%;
   width: 100%;
-  display: inline-flexbox;
+  display: grid;
 }
 
 #tweetSummary {
@@ -33,38 +34,48 @@
 
 #tweetMedia {
   width: 100%;
-  height: 85%;
+  height: auto;
   margin: 0%;
-}
-
-#tweetFunction {
-  height: 5%;
-  margin: 0%;
+  display: block;
+  border-radius: 15px;
+  border-style: solid;
+  border-color: lightgrey;
+  overflow: hidden;
 }
 
 #mediaGroup1,
 #mediaGroup2 {
-  display: flex;
   width: 100%;
   height: 50%;
   margin: 0%;
-  overflow-x: hidden;
-  overflow-y: hidden;
+  display: flex;
 }
 
-#mediaContainer {
-  width: 50%;
+#mediaContainer1,
+#mediaContainer2,
+#mediaContainer3,
+#mediaContainer4 {
+  width: 100%;
   height: 100%;
-  overflow: hidden;
 }
 
 #imageUploaded1,
 #imageUploaded2,
 #imageUploaded3,
 #imageUploaded4 {
-  width: 100%;
-  height: 100%;
-  display: inherit;
+  object-fit: cover;
+  object-position: top;
+  margin: 0%;
+  cursor: pointer;
+}
+
+#verticalDivider {
+  position: absolute;
+}
+
+#tweetFunction {
+  height: 5%;
+  margin: 0%;
 }
 
 /* 

@@ -12,7 +12,7 @@ class Tweet extends Component {
 
   render() {
     return (
-      <Container textAlign="center">
+      <Container id="tweetContainer">
         <Card fluid id="tweetCard">
           <Feed id="tweet">
             <Feed.Event id="tweetEvent">
@@ -23,20 +23,31 @@ class Tweet extends Component {
                   <Feed.Date id="postDate">3 days ago</Feed.Date>
                 </Feed.Summary>
                 <Feed.Extra text id="tweetText">
-                  Hello World
+                  klsaglkamg
+                  <br />
+                  asgnlsnf
+                  <br />
+                  adglsn
                 </Feed.Extra>
                 <Feed.Extra id="tweetMedia">
                   <Image.Group id="mediaGroup1">
-                    <div id="mediaContainer">
+                    <div id="mediaContainer1">
                       <Image src={image1} id="imageUploaded1" />
                     </div>
-                    <div id="mediaContainer">
+
+                    <div id="mediaContainer2">
                       <Image src={image} id="imageUploaded2" />
                     </div>
                   </Image.Group>
+                  <Divider vertical hidden section id="verticalDivider" />
+                  <Divider horizontal hidden section id="verticalDivider" />
                   <Image.Group id="mediaGroup2">
-                    <Image src={image} id="imageUploaded3" />
-                    <Image src={image1} id="imageUploaded4" />
+                    <div id="mediaContainer3">
+                      <Image src={image1} id="imageUploaded3" />
+                    </div>
+                    <div id="mediaContainer4">
+                      <Image src={image} id="imageUploaded4" />
+                    </div>
                   </Image.Group>
                 </Feed.Extra>
                 <Feed.Meta id="tweetFunction">
