@@ -5,6 +5,8 @@ import App from "./app/App";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "semantic-ui-css/semantic.min.css";
 
+localStorage.setItem("image", "https://i.imgur.com/rncMOW1.jpg");
+
 ReactDOM.render(
   <React.StrictMode>
     <App />

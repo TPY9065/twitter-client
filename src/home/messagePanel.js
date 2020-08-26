@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Button, Form } from "react-bootstrap";
 import axios from "axios";
-import Tweet from "./tweet";
 
 class MessagePanel extends Component {
   constructor(props) {
@@ -22,7 +21,7 @@ class MessagePanel extends Component {
     const formData = new FormData();
     console.log(this.state.files);
     Object.keys(this.state.files).map((id) => {
-      formData.append("image", this.state.files[id]);
+      return formData.append("image", this.state.files[id]);
     });
     formData.append("text", "Hello World!");
     const response = await axios({
@@ -77,9 +76,6 @@ class MessagePanel extends Component {
             Submit
           </Button>
         </Form>
-        {this.state.tweets ? (
-          <Tweet tweet={this.state.tweets[0]}></Tweet>
-        ) : null}
       </div>
     );
   }

@@ -1,13 +1,19 @@
-.home {
-  text-align: center;
+#container {
+  display: flex;
+  flex-direction: row;
 }
 
-.home {
-  min-height: 100vh;
+#sender {
+  margin: 0;
+}
+
+#navbar {
+  position: relative;
+  text-align: left;
+}
+
+#messagePanel {
+  width: 30vw;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }

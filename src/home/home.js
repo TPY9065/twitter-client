@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import MessagePanel from "./messagePanel";
+import NavBar from "./navBar/navbar";
 import "./home.css";
-import Tweet from "./tweet";
+import Sender from "./sender/sender";
+import Tweet from "./tweet/tweet";
 
 class Home extends Component {
   constructor(props) {
@@ -10,10 +11,12 @@ class Home extends Component {
   }
   render() {
     return (
-      <div className="home">
-        <Tweet />
-        {/* <Setting />
-        <TwittingPanel /> */}
+      <div id="container">
+        <NavBar id="navbar" />
+        <div id="messagePanel">
+          <Sender id="sender" />
+          <Tweet />
+        </div>
       </div>
     );
   }

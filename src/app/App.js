@@ -4,6 +4,8 @@ import Root from "../root/root";
 import Register from "../register/register";
 import Login from "../login/login";
 import Home from "../home/home";
+import Tweet from "../home/tweet/tweet";
+import Sender from "../home/sender/sender";
 
 function App() {
   return (
@@ -14,7 +16,8 @@ function App() {
           <Route path="/register" component={Register} />
           <Route path="/login" component={Login} />
           <Route path="/home" component={Home} />
-          <Route path="/user" />
+          <Route path="/tweet" component={Tweet} />
+          <Route path="/sender" component={Sender} />
         </Switch>
       </Router>
     </div>
