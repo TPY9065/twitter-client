@@ -1,11 +1,11 @@
 #tweetContainer {
   display: flex;
   margin: auto;
-  min-width: 60px;
-  min-height: 40px;
+  width: 600px;
+  height: auto;
   border-color: rgb(230, 236, 240);
   border-style: solid;
-  border-width: 1px;
+  border-width: 0px 1px 1px 0px;
   cursor: pointer;
 }
 
@@ -27,12 +27,12 @@
 }
 
 #tweetSummary,
-#tweetText,
-#tweetMeta {
+#tweetText {
   margin: 0 0 0.5em 0;
 }
 
 #tweetMeta {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
+  user-select: none;
 }

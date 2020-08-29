@@ -6,7 +6,7 @@
   flex-wrap: wrap;
   flex-basis: 1;
   height: 200px;
-  width: 500px;
+  width: 95%;
   border-radius: 15px;
   border-style: solid;
   border-color: lightgrey;
@@ -62,5 +62,4 @@
   height: auto;
   margin: 0%;
   position: absolute;
-  z-index: -1;
 }

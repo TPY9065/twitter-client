@@ -13,7 +13,13 @@
 }
 
 #messagePanel {
-  width: 30vw;
+  width: 600px;
   display: flex;
   flex-direction: column;
+}
+
+#border {
+  height: 10px;
+  width: 600px;
+  background-color: rgb(230, 236, 240);
 }

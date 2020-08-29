@@ -21,6 +21,8 @@ class Sender extends Component {
         choiceArray: { 1: "", 2: "" },
       },
       userIcon: localStorage.getItem("image"),
+      username: localStorage.getItem("username"),
+      returnTweet: {},
     };
   }
 
@@ -75,10 +77,18 @@ class Sender extends Component {
   handleOnClickSubmit = async () => {
     const formData = new FormData();
     formData.append("text", this.state.text);
+    formData.append("username", "Lawrence");
     Object.keys(this.state.media).map((id) => {
       return formData.append("image", this.state.media[id]);
     });
-    axios.post("http://localhost:3000/post/tweet", formData);
+    const response = await axios({
+      url: "http://localhost:3000/post/tweet",
+      data: formData,
+      method: "post",
+    });
+    if (response.status === 200) {
+      this.props.addNewTweet(response.data.tweet);
+    }
   };
 
   handleOnAddChoice = () => {

@@ -1,11 +1,11 @@
 #tweetPost {
-  width: 30vw;
+  width: 600px;
   height: auto;
   display: flex;
   flex-direction: column;
   border-style: solid;
-  border-color: lightgray;
-  border-width: 1px;
+  border-color: rgb(230, 236, 240);
+  border-width: 1px 1px 0px 0px;
 }
 
 #tweetMessageContainer {

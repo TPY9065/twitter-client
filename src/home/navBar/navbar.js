@@ -6,7 +6,7 @@ import BookmarkBorderOutlinedIcon from "@material-ui/icons/BookmarkBorderOutline
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import NotificationsNoneOutlinedIcon from "@material-ui/icons/NotificationsNoneOutlined";
 import "./navbar.css";
-import { Avatar } from "@material-ui/core";
+import Avatar from "@material-ui/core/Avatar";
 
 class NavBar extends Component {
   constructor(props) {
