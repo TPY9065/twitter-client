@@ -18,22 +18,29 @@ class Tweet extends Component {
             <Feed.Label image={image} id="userIcon" />
             <Feed.Content id="tweetContent">
               <Feed.Summary id="tweetSummary">
-                <a href="/home">Lawrence</a>
+                <a href="/home">{this.props.tweetInfo.username}</a>
                 <Feed.Date>
                   {new Date().toLocaleString("ch", { hour12: false })}
                 </Feed.Date>
               </Feed.Summary>
-              <Feed.Extra text id="tweetText"></Feed.Extra>
-              <Media />
+              <Feed.Extra text id="tweetText">
+                {this.props.tweetInfo.text}
+                {this.props.tweetInfo.media ? (
+                  <Media media={this.props.tweetInfo.media[0]} />
+                ) : null}
+              </Feed.Extra>
               <Feed.Meta id="tweetMeta">
                 <Feed.Like>
-                  <Icon name="comment outline" />0
+                  <Icon name="comment outline" />
+                  {this.props.tweetInfo.comment}
                 </Feed.Like>
                 <Feed.Like>
-                  <Icon name="retweet" />0
+                  <Icon name="retweet" />
+                  {this.props.tweetInfo.rewteets}
                 </Feed.Like>
                 <Feed.Like>
-                  <Icon name="heart outline" />0
+                  <Icon name="heart outline" />
+                  {this.props.tweetInfo.like}
                 </Feed.Like>
                 <Feed.Like>
                   <Icon name="share square" />

@@ -16,8 +16,13 @@ class Home extends Component {
   addNewTweet = (tweet) => {
     const tweets = Object.assign({}, this.state.tweets);
     tweets[this.state.numTweets] = tweet;
+    console.log(tweet);
     this.setState({ tweets: tweets, numTweets: this.state.numTweets + 1 });
   };
+
+  componentDidMount() {
+    console.log("Component did mount");
+  }
 
   render() {
     return (
@@ -43,8 +48,6 @@ class Home extends Component {
           ) : (
             <Tweet />
           )}
-          <Tweet />
-          <Tweet />
         </div>
       </div>
     );
