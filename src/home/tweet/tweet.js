@@ -36,7 +36,7 @@ class Tweet extends Component {
                 </Feed.Like>
                 <Feed.Like>
                   <Icon name="retweet" />
-                  {this.props.tweetInfo.rewteets}
+                  {this.props.tweetInfo.reteets}
                 </Feed.Like>
                 <Feed.Like>
                   <Icon name="heart outline" />
