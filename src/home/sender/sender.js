@@ -87,6 +87,7 @@ class Sender extends Component {
       method: "post",
     });
     if (response.status === 200) {
+      console.log(response.data.tweet);
       this.props.addNewTweet(response.data.tweet);
     }
   };

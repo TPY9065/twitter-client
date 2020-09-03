@@ -16,13 +16,11 @@ class Home extends Component {
 
   addNewTweet = (tweet) => {
     const tweets = Object.assign({}, this.state.tweets);
-    tweets[this.state.numTweets] = tweet;
-    console.log(tweet);
+    tweets[tweet._id] = tweet;
     this.setState({ tweets: tweets, numTweets: this.state.numTweets + 1 });
   };
 
   componentDidMount() {
-    console.log("Component did mount");
     axios
       .get("http://localhost:3000/get/tweets")
       .then((response) => {
@@ -35,6 +33,25 @@ class Home extends Component {
       });
   }
 
+  // componentWillUnmount() {
+  //   console.log("Component will unmount");
+  // }
+
+  handleOnClickLike = (e, tweetId) => {
+    axios({
+      url: "http://localhost:3000/update/tweet",
+      method: "put",
+      data: {
+        id: tweetId,
+        data: e.currentTarget.id,
+      },
+    });
+  };
+
+  componentDidUpdate() {
+    console.log("Component did update");
+  }
+
   render() {
     return (
       <div id="container">
@@ -44,15 +61,18 @@ class Home extends Component {
           <div id="border" />
           {this.state.numTweets === 0
             ? null
-            : Object.keys(this.state.tweets).map((id) => {
-                return (
-                  <Tweet
-                    tweetInfo={this.state.tweets[id]}
-                    key={id}
-                    postId={this.state.tweets[id]._id}
-                  />
-                );
-              })}
+            : Object.keys(this.state.tweets)
+                .reverse()
+                .map((id) => {
+                  return (
+                    <Tweet
+                      tweetInfo={this.state.tweets[id]}
+                      key={id}
+                      postId={id}
+                      handleOnClickLike={this.handleOnClickLike}
+                    />
+                  );
+                })}
         </div>
       </div>
     );

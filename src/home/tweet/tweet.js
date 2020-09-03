@@ -7,10 +7,15 @@ import image from "./img/IMG_3707.jpg";
 class Tweet extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      like: this.props.tweetInfo.like,
+    };
   }
 
   render() {
+    let media = this.props.tweetInfo.media[0]
+      ? this.props.tweetInfo.media[0]
+      : this.props.tweetInfo.media;
     return (
       <div>
         <Feed id="tweetContainer">
@@ -25,22 +30,29 @@ class Tweet extends Component {
               </Feed.Summary>
               <Feed.Extra text id="tweetText">
                 {this.props.tweetInfo.text}
-                {this.props.tweetInfo.media ? (
-                  <Media media={this.props.tweetInfo.media[0]} />
-                ) : null}
+                {this.props.tweetInfo.media ? <Media media={media} /> : null}
               </Feed.Extra>
               <Feed.Meta id="tweetMeta">
                 <Feed.Like>
-                  <Icon name="comment outline" />
+                  <Icon name="comment outline" id="comment" />
                   {this.props.tweetInfo.comment}
                 </Feed.Like>
                 <Feed.Like>
-                  <Icon name="retweet" />
-                  {this.props.tweetInfo.reteets}
+                  <Icon name="retweet" id="retweets" />
+                  {this.props.tweetInfo.retweets}
                 </Feed.Like>
-                <Feed.Like>
+                <Feed.Like
+                  id="like"
+                  onClick={(event) => {
+                    this.props.handleOnClickLike(
+                      event,
+                      this.props.tweetInfo._id
+                    );
+                    this.setState({ like: this.state.like + 1 });
+                  }}
+                >
                   <Icon name="heart outline" />
-                  {this.props.tweetInfo.like}
+                  {this.state.like}
                 </Feed.Like>
                 <Feed.Like>
                   <Icon name="share square" />
