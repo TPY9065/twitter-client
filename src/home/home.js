@@ -12,13 +12,22 @@ class Home extends Component {
       tweets: [],
       numTweets: 0,
       page: 0,
-      currHeight: 0,
+      currHeight: window.pageYOffset + window.innerHeight,
     };
   }
 
   addNewTweet = (tweet) => {
     const tweets = this.state.tweets;
     tweets.push(tweet);
+    this.setState((prevState) => ({
+      tweets: tweets,
+      numTweets: prevState.numTweets + 1,
+    }));
+  };
+
+  postNewTweet = (tweet) => {
+    const tweets = this.state.tweets;
+    tweets.unshift(tweet);
     this.setState((prevState) => ({
       tweets: tweets,
       numTweets: prevState.numTweets + 1,
@@ -43,35 +52,32 @@ class Home extends Component {
       data: { page: this.state.page },
     })
       .then((response) => {
+        console.log(`status code: ${response.status}`);
         if (response.status === 200) {
           for (var key in response.data.tweets) {
             this.addNewTweet(response.data.tweets[key]);
           }
-          // console.log(this.state.tweets);
           this.setState((prevState) => ({
             page: prevState.page + 1,
-            currHeight: document.getElementById("messagePanel").scrollHeight,
+            currHeight: window.pageYOffset + window.innerHeight,
           }));
-        } else {
-          window.removeEventListener("scroll", () => {});
         }
       })
       .catch((err) => {
-        console.log(err);
+        window.removeEventListener("scroll", this.checkBottom);
       });
+  };
+
+  checkBottom = () => {
+    if (window.pageYOffset + window.innerHeight >= document.body.scrollHeight) {
+      console.log("you're at the bottom of the page");
+      this.loadTweets();
+    }
   };
 
   componentDidMount() {
     this.loadTweets();
-    window.addEventListener("scroll", () => {
-      if (
-        window.pageYOffset + window.innerHeight >=
-        document.body.scrollHeight
-      ) {
-        console.log("you're at the bottom of the page");
-        this.loadTweets();
-      }
-    });
+    window.addEventListener("scroll", this.checkBottom);
   }
 
   render() {
@@ -79,7 +85,7 @@ class Home extends Component {
       <div id="container">
         <NavBar id="navbar" />
         <div id="messagePanel">
-          <Sender id="sender" addNewTweet={this.addNewTweet} />
+          <Sender id="sender" postNewTweet={this.postNewTweet} />
           <div id="border" />
           {this.state.numTweets === 0
             ? null
