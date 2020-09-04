@@ -34,13 +34,14 @@ class Home extends Component {
     }));
   };
 
-  handleOnClickLike = (e, tweetId) => {
+  handleOnClickLike = (e, tweetId, liked) => {
     axios({
       url: "http://localhost:3000/update/tweet",
       method: "put",
       data: {
         id: tweetId,
         data: e.currentTarget.id,
+        liked: liked,
       },
     });
   };
@@ -52,7 +53,6 @@ class Home extends Component {
       data: { page: this.state.page },
     })
       .then((response) => {
-        console.log(`status code: ${response.status}`);
         if (response.status === 200) {
           for (var key in response.data.tweets) {
             this.addNewTweet(response.data.tweets[key]);

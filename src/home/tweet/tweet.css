@@ -29,10 +29,54 @@
 #tweetSummary,
 #tweetText {
   margin: 0 0 0.5em 0;
+  max-width: 505px;
 }
 
 #tweetMeta {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  display: flex;
+  flex-direction: row;
   user-select: none;
+  justify-content: space-between;
+  width: 450px;
+  margin: 0%;
+}
+
+#buttonContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+#metaData {
+  font-size: 20px;
+  padding: 12px 12px 12px 0px;
+  color: rgb(101, 119, 134);
+}
+
+#like:hover + #metaData {
+  color: rgb(224, 36, 94);
+}
+
+#like:hover {
+  background-color: rgb(224, 36, 94, 0.1);
+  color: rgb(224, 36, 94);
+}
+
+#retweet:hover + #metaData {
+  color: rgb(23, 191, 99);
+}
+
+#retweet:hover {
+  background-color: rgb(23, 191, 99, 0.1);
+  color: rgb(23, 191, 99);
+}
+
+#comment:hover + #metaData {
+  color: rgb(29, 161, 242);
+}
+
+#comment:hover,
+#share:hover {
+  background-color: rgb(29, 161, 242, 0.1);
+  color: rgb(29, 161, 242);
 }
