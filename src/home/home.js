@@ -25,6 +25,17 @@ class Home extends Component {
     }));
   };
 
+  handleOnClickLike = (e, tweetId) => {
+    axios({
+      url: "http://localhost:3000/update/tweet",
+      method: "put",
+      data: {
+        id: tweetId,
+        data: e.currentTarget.id,
+      },
+    });
+  };
+
   loadTweets = () => {
     axios({
       url: "http://localhost:3000/get/tweets",
@@ -36,12 +47,13 @@ class Home extends Component {
           for (var key in response.data.tweets) {
             this.addNewTweet(response.data.tweets[key]);
           }
+          // console.log(this.state.tweets);
           this.setState((prevState) => ({
             page: prevState.page + 1,
             currHeight: document.getElementById("messagePanel").scrollHeight,
           }));
         } else {
-          throw response.data.message;
+          window.removeEventListener("scroll", () => {});
         }
       })
       .catch((err) => {
@@ -61,17 +73,6 @@ class Home extends Component {
       }
     });
   }
-
-  handleOnClickLike = (e, tweetId) => {
-    axios({
-      url: "http://localhost:3000/update/tweet",
-      method: "put",
-      data: {
-        id: tweetId,
-        data: e.currentTarget.id,
-      },
-    });
-  };
 
   render() {
     return (
