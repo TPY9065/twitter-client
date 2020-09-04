@@ -26,9 +26,7 @@ class Tweet extends Component {
             <Feed.Content id="tweetContent">
               <Feed.Summary id="tweetSummary">
                 <a href="/home">{this.props.tweetInfo.username}</a>
-                <Feed.Date>
-                  {new Date().toLocaleString("ch", { hour12: false })}
-                </Feed.Date>
+                <Feed.Date>{this.props.tweetInfo.time}</Feed.Date>
               </Feed.Summary>
               <Feed.Extra text id="tweetText">
                 {this.props.tweetInfo.text}
