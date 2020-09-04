@@ -11,30 +11,50 @@ class Home extends Component {
     this.state = {
       tweets: {},
       numTweets: 0,
+      page: 0,
+      currHeight: 0,
     };
   }
 
   addNewTweet = (tweet) => {
     const tweets = Object.assign({}, this.state.tweets);
     tweets[tweet._id] = tweet;
-    this.setState({ tweets: tweets, numTweets: this.state.numTweets + 1 });
+    this.setState({
+      tweets: tweets,
+      numTweets: this.state.numTweets + 1,
+    });
   };
 
   componentDidMount() {
-    axios
-      .get("http://localhost:3000/get/tweets")
+    console.log("Component did mount");
+    axios({
+      url: "http://localhost:3000/get/tweets",
+      method: "post",
+      data: { page: this.state.page },
+    })
       .then((response) => {
         for (var key in response.data.tweets) {
           this.addNewTweet(response.data.tweets[key]);
         }
+        this.setState({
+          page: this.state.page + 1,
+          currHeight: document.getElementById("messagePanel").scrollHeight,
+        });
+        console.log(this.state.currHeight);
       })
       .catch((err) => {
-        console.log("empty tweets");
+        console.log(err);
       });
   }
 
-  // componentWillUnmount() {
-  //   console.log("Component will unmount");
+  // componentWillMount() {
+  //   console.log("Component will mount");
+  //   window.addEventListener("scroll", function () {
+  //     if (window.innerHeight + window.scrollY >= document.body.scrollHeight) {
+  //       console.log("you're at the bottom of the page");
+  //       //show loading spinner and make fetch request to api
+  //     }
+  //   });
   // }
 
   handleOnClickLike = (e, tweetId) => {
@@ -50,6 +70,35 @@ class Home extends Component {
 
   componentDidUpdate() {
     console.log("Component did update");
+  }
+
+  shouldComponentUpdate() {
+    console.log(
+      `currHeight: ${this.state.currHeight}, windowHeight: ${window.innerHeight}`
+    );
+    if (this.state.currHeight > window.innerHeight * (this.state.page + 1)) {
+      console.log("Stop");
+      this.setState({ currHeight: 0 });
+      axios({
+        url: "http://localhost:3000/get/tweets",
+        method: "post",
+        data: { page: this.state.page },
+      })
+        .then((response) => {
+          for (var key in response.data.tweets) {
+            this.addNewTweet(response.data.tweets[key]);
+          }
+          this.setState({
+            page: this.state.page + 1,
+            currHeight: document.getElementById("messagePanel").scrollHeight,
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      return true;
+    }
+    return true;
   }
 
   render() {

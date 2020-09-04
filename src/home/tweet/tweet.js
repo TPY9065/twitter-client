@@ -13,9 +13,11 @@ class Tweet extends Component {
   }
 
   render() {
-    let media = this.props.tweetInfo.media[0]
+    let media = this.props.tweetInfo.media
       ? this.props.tweetInfo.media[0]
-      : this.props.tweetInfo.media;
+        ? this.props.tweetInfo.media[0]
+        : this.props.tweetInfo.media
+      : null;
     return (
       <div>
         <Feed id="tweetContainer">
