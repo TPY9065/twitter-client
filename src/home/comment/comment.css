@@ -1,0 +1,59 @@
+#commentModal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 10px;
+  overflow: hidden;
+  width: 600px;
+  max-width: 600px;
+}
+
+#commentCardContainer {
+  outline: none;
+  width: 600px;
+  min-height: 400px;
+  border-radius: 10px;
+}
+
+#replyContentContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+#targetIcon {
+  width: 60px;
+}
+
+#replyTweetContent {
+  margin: 0 10px 0 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+#replyTweetSummary {
+  margin: 0;
+  font-size: 20px;
+}
+
+#replyCardEvent {
+  height: fit-content;
+  display: flex;
+  flex-direction: row;
+}
+
+.modal-content:nth-child(1) {
+  border-radius: 10px;
+  height: fit-content;
+}
+
+#replyTweetContainer {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+#replyTweetMessage {
+  padding: 10px 10px 0px 10px;
+  margin: 0px;
+}

@@ -1,13 +1,15 @@
 import React, { Component } from "react";
-import { Feed, Icon } from "semantic-ui-react";
+import { Feed } from "semantic-ui-react";
 import { IconButton } from "@material-ui/core";
-import Comment from "./svg/comment";
-import Share from "./svg/share";
-import Like from "./svg/like";
-import Retweet from "./svg/retweet";
+import Comment from "./svg/commentSvg";
+import Share from "./svg/shareSvg";
+import Like from "./svg/likeSvg";
+import Liked from "./svg/likedSvg";
+import Retweet from "./svg/retweetSvg";
 import "./tweet.css";
 import Media from "./media";
 import image from "./img/IMG_3707.jpg";
+import CommentBoard from "../comment/comment";
 
 class Tweet extends Component {
   constructor(props) {
@@ -15,7 +17,9 @@ class Tweet extends Component {
     this.state = {
       like: this.props.tweetInfo.like,
       liked: false,
+      open: false,
     };
+    this.innerRef = React.createRef();
   }
 
   handleOnClickLike = (event) => {
@@ -34,12 +38,26 @@ class Tweet extends Component {
     this.setState({ liked: !this.state.liked });
   };
 
+  handleOnOpenModal = () => {
+    this.setState({ open: true });
+  };
+
+  handleOnCloseModal = () => {
+    this.setState({ open: false });
+  };
+
   render() {
-    let media = this.props.tweetInfo.media
+    var media = this.props.tweetInfo.media
       ? this.props.tweetInfo.media[0]
         ? this.props.tweetInfo.media[0]
         : this.props.tweetInfo.media
       : null;
+    var likeMetaData = "metaData";
+    if (this.state.liked) {
+      likeMetaData = "likeMetaData";
+    } else {
+      likeMetaData = "metaData";
+    }
     return (
       <div>
         <Feed id="tweetContainer">
@@ -56,10 +74,21 @@ class Tweet extends Component {
               </Feed.Extra>
               <Feed.Meta id="tweetMeta">
                 <div id="buttonContainer">
-                  <IconButton component="label" id="comment">
+                  <IconButton
+                    component="label"
+                    id="comment"
+                    onClick={this.handleOnOpenModal}
+                  >
                     <Comment />
                   </IconButton>
                   <span id="metaData">{this.props.tweetInfo.comment}</span>
+                  <CommentBoard
+                    isOpen={this.state.open}
+                    handleOnCloseModal={this.handleOnCloseModal}
+                    image={image}
+                    tweetInfo={this.props.tweetInfo}
+                    media={media}
+                  />
                 </div>
                 <div id="buttonContainer">
                   <IconButton component="label" id="retweet">
@@ -73,9 +102,9 @@ class Tweet extends Component {
                     id="like"
                     onClick={this.handleOnClickLike}
                   >
-                    <Like />
+                    {this.state.liked ? <Liked id="liked" /> : <Like />}
                   </IconButton>
-                  <span id="metaData">{this.state.like}</span>
+                  <span id={likeMetaData}>{this.state.like}</span>
                 </div>
                 <div id="buttonContainer">
                   <IconButton component="label" id="share">

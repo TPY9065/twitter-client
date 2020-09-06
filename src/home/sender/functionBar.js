@@ -66,7 +66,7 @@ class FunctionBar extends Component {
               type="submit"
               onClick={this.props.handleOnClickSubmit}
             >
-              Submit
+              {this.props.type ? this.props.type : "推文"}
             </Button>
           </div>
         </div>
