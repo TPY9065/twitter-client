@@ -16,7 +16,12 @@ function App() {
           <Route path="/register" component={Register} />
           <Route path="/login" component={Login} />
           <Route path="/home" component={Home} />
-          <Route path="/tweet" component={Tweet} />
+          <Route
+            path="/tweet/:id"
+            render={(routeProps) => (
+              <Tweet tweetInfo={routeProps.location.state.tweetInfo} />
+            )}
+          />
           <Route path="/sender" component={Sender} />
         </Switch>
       </Router>

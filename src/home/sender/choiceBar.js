@@ -18,7 +18,7 @@ class ChoiceBar extends Component {
             type="text"
             placeholder={`Choice ${this.props.choice}`}
             size="lg"
-            id="question"
+            id={`question question${this.props.choice}`}
             num={this.props.choice}
             onChange={this.props.handleOnChangeChoice}
           />

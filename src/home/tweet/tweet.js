@@ -10,6 +10,7 @@ import "./tweet.css";
 import Media from "./media";
 import image from "./img/IMG_3707.jpg";
 import CommentBoard from "../comment/comment";
+import { Redirect } from "react-router-dom";
 
 class Tweet extends Component {
   constructor(props) {
@@ -18,8 +19,9 @@ class Tweet extends Component {
       like: this.props.tweetInfo.like,
       liked: false,
       open: false,
+      comment: this.props.tweetInfo.comment,
+      clicked: false,
     };
-    this.innerRef = React.createRef();
   }
 
   handleOnClickLike = (event) => {
@@ -38,12 +40,20 @@ class Tweet extends Component {
     this.setState({ liked: !this.state.liked });
   };
 
+  handleOnUpdateComment = () => {
+    this.setState({ comment: this.state.comment + 1 });
+  };
+
   handleOnOpenModal = () => {
     this.setState({ open: true });
   };
 
   handleOnCloseModal = () => {
     this.setState({ open: false });
+  };
+
+  handleOnClickTweet = () => {
+    this.setState({ clicked: true });
   };
 
   render() {
@@ -59,7 +69,7 @@ class Tweet extends Component {
       likeMetaData = "metaData";
     }
     return (
-      <div>
+      <div onClick={this.handleOnClickTweet}>
         <Feed id="tweetContainer">
           <Feed.Event id="tweetEvent">
             <Feed.Label image={image} id="userIcon" />
@@ -81,13 +91,15 @@ class Tweet extends Component {
                   >
                     <Comment />
                   </IconButton>
-                  <span id="metaData">{this.props.tweetInfo.comment}</span>
+                  <span id="metaData">{this.state.comment}</span>
                   <CommentBoard
                     isOpen={this.state.open}
                     handleOnCloseModal={this.handleOnCloseModal}
                     image={image}
                     tweetInfo={this.props.tweetInfo}
                     media={media}
+                    replyTweetId={this.props.tweetInfo._id}
+                    handleOnUpdateComment={this.handleOnUpdateComment}
                   />
                 </div>
                 <div id="buttonContainer">
@@ -115,6 +127,15 @@ class Tweet extends Component {
             </Feed.Content>
           </Feed.Event>
         </Feed>
+        {this.state.clicked ? (
+          <Redirect
+            push
+            to={{
+              pathname: `/tweet/${this.props.tweetInfo._id}`,
+              state: { tweetInfo: this.props.tweetInfo },
+            }}
+          />
+        ) : null}
       </div>
     );
   }

@@ -36,7 +36,7 @@ class Home extends Component {
 
   handleOnClickLike = (e, tweetId, liked) => {
     axios({
-      url: "http://localhost:3000/update/tweet",
+      url: "http://localhost:3000/like/tweet",
       method: "put",
       data: {
         id: tweetId,
@@ -66,6 +66,10 @@ class Home extends Component {
       .catch((err) => {
         window.removeEventListener("scroll", this.checkBottom);
       });
+  };
+
+  handleOnClickTweet = (e) => {
+    console.log(e.currentTarget);
   };
 
   checkBottom = () => {

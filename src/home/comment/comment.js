@@ -24,7 +24,6 @@ class CommentBoard extends Component {
       },
       userIcon: localStorage.getItem("image"),
       username: localStorage.getItem("username"),
-      returnTweet: {},
     };
   }
 
@@ -70,27 +69,25 @@ class CommentBoard extends Component {
     });
   };
 
-  handleOnSubmit = (e) => {
-    e.preventDefault();
-    this.setState({ text: "", media: {}, fileNum: 0 });
-    this.handleOnCloseQuestionnaire();
-  };
-
   handleOnClickSubmit = async () => {
-    const formData = new FormData();
-    formData.append("text", this.state.text);
-    formData.append("username", "Lawrence");
+    const formData = {
+      text: this.state.text,
+      username: this.state.username,
+      replyTweetId: this.props.replyTweetId,
+    };
     Object.keys(this.state.media).map((id) => {
       return formData.append("image", this.state.media[id]);
     });
     const response = await axios({
-      url: "http://localhost:3000/post/tweet",
+      url: "http://localhost:3000/comment/tweet",
       data: formData,
-      method: "post",
+      method: "put",
     });
     if (response.status === 200) {
-      console.log(response.data.tweet);
-      this.props.postNewTweet(response.data.tweet);
+      this.props.handleOnCloseModal();
+      this.handleOnCloseModal();
+      this.handleOnCloseQuestionnaire();
+      this.props.handleOnUpdateComment();
     }
   };
 
@@ -130,7 +127,6 @@ class CommentBoard extends Component {
   };
 
   handleOnCloseModal = () => {
-    console.log("close");
     this.setState({
       text: "",
       media: {},
@@ -141,6 +137,7 @@ class CommentBoard extends Component {
       },
       returnTweet: {},
     });
+    this.handleOnCloseQuestionnaire();
   };
 
   render() {
@@ -219,7 +216,9 @@ class CommentBoard extends Component {
                     handleOnUploadMedia={this.handleOnUploadMedia}
                     handleOnOpenQuestionnaire={this.handleOnOpenQuestionnaire}
                     handleOnClickLocation={this.handleOnClickLocation}
-                    handleOnClickSubmit={this.handleOnClickSubmit}
+                    handleOnClickSubmit={() => {
+                      this.handleOnClickSubmit();
+                    }}
                     open={this.state.open}
                   />
                 </div>
