@@ -1,0 +1,29 @@
+#tweetPostCard {
+  width: 600px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  border-style: solid;
+  border-color: rgb(230, 236, 240);
+  border-width: 1px 1px 0px 0px;
+  box-shadow: none;
+}
+
+#tweetPostHeaderContainer {
+  display: flex;
+  flex-direction: row;
+  padding: 1%;
+}
+
+#tweetPostHeader {
+  padding: 12px 12px 12px 0px;
+  margin: auto 0px auto 0px;
+}
+
+#tweetPostContent {
+  height: 100%;
+  width: 100%;
+  font-size: 1em;
+  line-height: 1.5em;
+  padding: 0%;
+}

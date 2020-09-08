@@ -5,7 +5,7 @@ import { Card, Feed } from "semantic-ui-react";
 import CloseIcon from "@material-ui/icons/Close";
 import TextareaAutosize from "react-autosize-textarea";
 import axios from "axios";
-import "./comment.css";
+import "./commentBoard.css";
 import FunctionBar from "../sender/functionBar";
 import Questionnaire from "../sender/questionnaire";
 import Layout from "../tweet/layout";

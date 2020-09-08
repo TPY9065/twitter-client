@@ -9,7 +9,7 @@ import Retweet from "./svg/retweetSvg";
 import "./tweet.css";
 import Media from "./media";
 import image from "./img/IMG_3707.jpg";
-import CommentBoard from "../comment/comment";
+import CommentBoard from "../commentBoard/commentBoard";
 import { Redirect } from "react-router-dom";
 
 class Tweet extends Component {
@@ -81,6 +81,11 @@ class Tweet extends Component {
                 <Feed.Date>{this.props.tweetInfo.time}</Feed.Date>
               </Feed.Summary>
               <Feed.Extra text id="tweetText">
+                {this.props.replyUser ? (
+                  <div>
+                    回覆<a href="/home">@{this.props.replyUser}</a>
+                  </div>
+                ) : null}
                 {this.props.tweetInfo.text}
                 {this.props.tweetInfo.media ? <Media media={media} /> : null}
               </Feed.Extra>
@@ -134,7 +139,9 @@ class Tweet extends Component {
             push
             to={{
               pathname: `/tweet/${this.props.tweetInfo._id}`,
-              state: { tweetInfo: this.props.tweetInfo },
+              state: {
+                tweetInfo: this.props.tweetInfo,
+              },
             }}
           />
         ) : null}

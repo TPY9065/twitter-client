@@ -4,8 +4,8 @@ import Root from "../root/root";
 import Register from "../register/register";
 import Login from "../login/login";
 import Home from "../home/home";
-import Tweet from "../home/tweet/tweet";
 import Sender from "../home/sender/sender";
+import TweetPost from "../tweetPost/tweetPost";
 
 function App() {
   return (
@@ -19,7 +19,7 @@ function App() {
           <Route
             path="/tweet/:id"
             render={(routeProps) => (
-              <Tweet tweetInfo={routeProps.location.state.tweetInfo} />
+              <TweetPost tweetInfo={routeProps.location.state.tweetInfo} />
             )}
           />
           <Route path="/sender" component={Sender} />
