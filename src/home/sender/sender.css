@@ -5,7 +5,7 @@
   flex-direction: column;
   border-style: solid;
   border-color: rgb(230, 236, 240);
-  border-width: 1px 1px 0px 0px;
+  border-width: 1px 1px 0px 1px;
 }
 
 #tweetMessageContainer {

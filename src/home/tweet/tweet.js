@@ -25,6 +25,7 @@ class Tweet extends Component {
   }
 
   handleOnClickLike = (event) => {
+    event.stopPropagation();
     this.props.handleOnClickLike(
       event,
       this.props.tweetInfo._id,
@@ -44,7 +45,8 @@ class Tweet extends Component {
     this.setState({ comment: this.state.comment + 1 });
   };
 
-  handleOnOpenModal = () => {
+  handleOnOpenModal = (e) => {
+    e.stopPropagation();
     this.setState({ open: true });
   };
 
@@ -87,7 +89,7 @@ class Tweet extends Component {
                   <IconButton
                     component="label"
                     id="comment"
-                    onClick={this.handleOnOpenModal}
+                    onClick={(event) => this.handleOnOpenModal(event)}
                   >
                     <Comment />
                   </IconButton>
@@ -112,7 +114,7 @@ class Tweet extends Component {
                   <IconButton
                     component="label"
                     id="like"
-                    onClick={this.handleOnClickLike}
+                    onClick={(event) => this.handleOnClickLike(event)}
                   >
                     {this.state.liked ? <Liked id="liked" /> : <Like />}
                   </IconButton>
