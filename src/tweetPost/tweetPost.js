@@ -7,6 +7,7 @@ import "./tweetPost.css";
 import { IconButton } from "@material-ui/core";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
+import CommentTweet from "../home/commentBoard/comment";
 
 class TweetPost extends Component {
   constructor(props) {
@@ -16,6 +17,7 @@ class TweetPost extends Component {
       comments: [],
       page: 0,
       numComments: 0,
+      tweet: null,
     };
   }
 
@@ -44,18 +46,26 @@ class TweetPost extends Component {
     }));
   };
 
+  postNewComment = (comment) => {
+    const comments = this.state.comments;
+    comments.unshift(comment);
+    this.setState((prevState) => ({
+      comments: comments,
+      numComments: prevState.numComments + 1,
+    }));
+  };
+
   loadComments = () => {
     axios({
       url: "http://localhost:3000/get/comments",
       method: "post",
-      data: { replyTweetId: this.props.tweetInfo._id, page: this.state.page },
+      data: { replyTweetId: this.props.tweetId, page: this.state.page },
     })
       .then((response) => {
         if (response.status === 200) {
           for (var key in response.data.comments) {
             this.addNewComment(response.data.comments[key]);
           }
-          console.log(this.state.comments);
           this.setState((prevState) => ({
             page: prevState.page + 1,
             currHeight: window.pageYOffset + window.innerHeight,
@@ -73,6 +83,17 @@ class TweetPost extends Component {
       this.loadComments();
     }
   };
+
+  // shouldComponentUpdate() {
+  //   const prevNumComments = this.state.numComments;
+  //   this.loadComments();
+  //   if (prevNumComments !== this.state.numComments) {
+  //     console.log("false");
+  //     // return true;
+  //   }
+  //   return true;
+  //   // return false
+  // }
 
   componentDidMount() {
     this.loadComments();
@@ -103,12 +124,13 @@ class TweetPost extends Component {
             {this.state.numComments
               ? Object.keys(this.state.comments).map((id) => {
                   return (
-                    <Tweet
+                    <CommentTweet
                       tweetInfo={this.state.comments[id]}
                       key={id}
                       postId={id}
                       handleOnClickLike={this.handleOnClickLike}
                       replyUser={this.props.tweetInfo.username}
+                      postNewComment={this.postNewComment}
                     />
                   );
                 })

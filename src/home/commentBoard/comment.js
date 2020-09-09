@@ -1,18 +1,18 @@
 import React, { Component } from "react";
 import { Feed } from "semantic-ui-react";
 import { IconButton } from "@material-ui/core";
-import Comment from "./svg/commentSvg";
-import Share from "./svg/shareSvg";
-import Like from "./svg/likeSvg";
-import Liked from "./svg/likedSvg";
-import Retweet from "./svg/retweetSvg";
-import "./tweet.css";
-import Media from "./media";
-import image from "./img/IMG_3707.jpg";
-import CommentBoard from "../commentBoard/commentBoard";
+import Comment from "../tweet/svg/commentSvg";
+import Share from "../tweet/svg/shareSvg";
+import Like from "../tweet/svg/likeSvg";
+import Liked from "../tweet/svg/likedSvg";
+import Retweet from "../tweet/svg/retweetSvg";
+import "./comment.css";
+import Media from "../tweet/media";
+import image from "../tweet/img/IMG_3707.jpg";
+import CommentBoard from "./commentBoard";
 import { Redirect } from "react-router-dom";
 
-class Tweet extends Component {
+class CommentTweet extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -20,7 +20,6 @@ class Tweet extends Component {
       liked: false,
       open: false,
       comment: this.props.tweetInfo.comment,
-      clicked: false,
     };
   }
 
@@ -54,11 +53,6 @@ class Tweet extends Component {
     this.setState({ open: false });
   };
 
-  handleOnClickTweet = () => {
-    console.log("onClickTweet");
-    this.setState({ clicked: true });
-  };
-
   render() {
     var media = this.props.tweetInfo.media
       ? this.props.tweetInfo.media[0]
@@ -72,10 +66,7 @@ class Tweet extends Component {
       likeMetaData = "metaData";
     }
     return (
-      <div
-        onClick={this.state.open ? null : this.handleOnClickTweet}
-        id="clickableTweet"
-      >
+      <div>
         <Feed id="tweetContainer">
           <Feed.Event id="tweetEvent">
             <Feed.Label image={image} id="userIcon" />
@@ -155,4 +146,4 @@ class Tweet extends Component {
   }
 }
 
-export default Tweet;
+export default CommentTweet;

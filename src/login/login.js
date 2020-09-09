@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Form, Button } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
+import { withCookies, Cookies } from "react-cookie";
 
 class Login extends Component {
   constructor(props) {
@@ -32,6 +33,8 @@ class Login extends Component {
       }),
     });
     if (response.status === 200) {
+      const session = await response.json();
+      console.log(session.session);
       this.setState({ success: true });
     } else {
       this.setState({

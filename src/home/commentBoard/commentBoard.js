@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Modal } from "react-bootstrap";
+import { Modal, Form } from "react-bootstrap";
 import { IconButton } from "@material-ui/core";
 import { Card, Feed } from "semantic-ui-react";
 import CloseIcon from "@material-ui/icons/Close";
@@ -28,6 +28,7 @@ class CommentBoard extends Component {
   }
 
   handleOnChange = (e) => {
+    e.stopPropagation();
     this.setState({ text: e.target.value });
   };
 
@@ -70,14 +71,21 @@ class CommentBoard extends Component {
   };
 
   handleOnClickSubmit = async () => {
-    const formData = {
-      text: this.state.text,
-      username: this.state.username,
-      replyTweetId: this.props.replyTweetId,
-    };
+    const formData = new FormData();
+    formData.append("text", this.state.text);
+    formData.append("username", this.state.username);
+    formData.append("replyTweetId", this.props.replyTweetId);
+    // const formData = {
+    //   text: this.state.text,
+    //   username: this.state.username,
+    //   replyTweetId: this.props.replyTweetId,
+    // };
     Object.keys(this.state.media).map((id) => {
       return formData.append("image", this.state.media[id]);
     });
+    console.log(
+      `${this.state.text}, ${this.state.username}, ${this.props.replyTweetId}`
+    );
     const response = await axios({
       url: "http://localhost:3000/comment/tweet",
       data: formData,
@@ -88,6 +96,9 @@ class CommentBoard extends Component {
       this.handleOnCloseModal();
       this.handleOnCloseQuestionnaire();
       this.props.handleOnUpdateComment();
+      if (this.props.postNewComment) {
+        this.props.postNewComment(response.data.comment);
+      }
     }
   };
 
@@ -155,7 +166,8 @@ class CommentBoard extends Component {
           <Card.Header>
             <IconButton
               component="label"
-              onClick={() => {
+              onClick={(e) => {
+                e.stopPropagation();
                 this.props.handleOnCloseModal();
                 this.handleOnCloseModal();
               }}
@@ -180,50 +192,52 @@ class CommentBoard extends Component {
                 </Card.Content>
               </Feed.Event>
             </Feed>
-            <Feed id="replyTweet">
-              <Feed.Event id="replyTweetEvent">
-                <Feed.Label image={this.props.image} id="targetIcon" as="a" />
-                <div id="replyTweetContainer">
-                  <Card.Content id="replyTweetMessage">
-                    <TextareaAutosize
-                      id="tweetTextArea"
-                      placeholder="推你的回覆"
-                      onChange={this.handleOnChange}
-                      value={this.state.text}
-                      rows={5}
+            <Form onSubmit={(e) => e.preventDefault()}>
+              <Feed id="replyTweet">
+                <Feed.Event id="replyTweetEvent">
+                  <Feed.Label image={this.props.image} id="targetIcon" as="a" />
+                  <div id="replyTweetContainer">
+                    <Card.Content id="replyTweetMessage">
+                      <TextareaAutosize
+                        id="tweetTextArea"
+                        placeholder="推你的回覆"
+                        onChange={(e) => {
+                          this.handleOnChange(e);
+                        }}
+                        value={this.state.text}
+                        rows={5}
+                      />
+                      {this.state.open && (
+                        <Questionnaire
+                          id="questionnaire"
+                          handleOnCloseQuestionnaire={
+                            this.handleOnCloseQuestionnaire
+                          }
+                          handleOnChangeChoice={this.handleOnChangeChoice}
+                          handleOnFirstChange={this.handleOnFirstChange}
+                          handleOnAddChoice={this.handleOnAddChoice}
+                          questionnaire={this.state.questionnaire}
+                        />
+                      )}
+                      {this.state.fileNum !== 0 && (
+                        <Layout
+                          files={this.state.media}
+                          handleOnClickCancel={this.handleOnClickCancel}
+                        />
+                      )}
+                    </Card.Content>
+                    <FunctionBar
+                      type="回覆"
+                      handleOnUploadMedia={this.handleOnUploadMedia}
+                      handleOnOpenQuestionnaire={this.handleOnOpenQuestionnaire}
+                      handleOnClickLocation={this.handleOnClickLocation}
+                      handleOnClickSubmit={this.handleOnClickSubmit}
+                      open={this.state.open}
                     />
-                    {this.state.open && (
-                      <Questionnaire
-                        id="questionnaire"
-                        handleOnCloseQuestionnaire={
-                          this.handleOnCloseQuestionnaire
-                        }
-                        handleOnChangeChoice={this.handleOnChangeChoice}
-                        handleOnFirstChange={this.handleOnFirstChange}
-                        handleOnAddChoice={this.handleOnAddChoice}
-                        questionnaire={this.state.questionnaire}
-                      />
-                    )}
-                    {this.state.fileNum !== 0 && (
-                      <Layout
-                        files={this.state.media}
-                        handleOnClickCancel={this.handleOnClickCancel}
-                      />
-                    )}
-                  </Card.Content>
-                  <FunctionBar
-                    type="回覆"
-                    handleOnUploadMedia={this.handleOnUploadMedia}
-                    handleOnOpenQuestionnaire={this.handleOnOpenQuestionnaire}
-                    handleOnClickLocation={this.handleOnClickLocation}
-                    handleOnClickSubmit={() => {
-                      this.handleOnClickSubmit();
-                    }}
-                    open={this.state.open}
-                  />
-                </div>
-              </Feed.Event>
-            </Feed>
+                  </div>
+                </Feed.Event>
+              </Feed>
+            </Form>
           </Card.Content>
         </Card>
       </Modal>

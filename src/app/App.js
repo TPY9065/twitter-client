@@ -19,7 +19,10 @@ function App() {
           <Route
             path="/tweet/:id"
             render={(routeProps) => (
-              <TweetPost tweetInfo={routeProps.location.state.tweetInfo} />
+              <TweetPost
+                tweetId={routeProps.match.params.id}
+                tweetInfo={routeProps.location.state.tweetInfo}
+              />
             )}
           />
           <Route path="/sender" component={Sender} />
