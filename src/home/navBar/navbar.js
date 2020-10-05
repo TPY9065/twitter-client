@@ -13,6 +13,7 @@ class NavBar extends Component {
     super(props);
     this.state = {
       userIcon: localStorage.getItem("image") && null,
+      pathname: this.props.pathname,
     };
   }
   render() {

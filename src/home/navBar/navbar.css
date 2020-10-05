@@ -1,24 +1,15 @@
-@media only screen and (max-width: 750px) {
-  #tab {
+@media only screen and (max-width: 640px) {
+  #tabName {
     display: none;
   }
 }
 
 #tab {
-  margin: auto;
   height: 100vh;
-  min-width: 0px;
-  position: sticky;
-  top: 0%;
-}
-
-#sideContainer {
-  width: auto;
 }
 
 #navBar {
   height: 100%;
-  width: 100%;
   border-style: solid;
   border-width: 0px 1px 1px 0px;
   border-color: rgb(230, 236, 240);
@@ -26,12 +17,25 @@
 }
 
 #tabContainer {
+  width: fit-content;
+  margin-left: 15px;
+  margin-right: 15px;
   color: black;
   font-size: 2rem;
   display: flex;
   flex-direction: row;
   text-align: left;
-  margin: auto;
+  transition: background-color 0.25s, color 0.25s;
+  border-radius: 30px;
+}
+
+#currentPath {
+  color: rgba(29, 161, 242, 1);
+}
+
+#tabContainer:hover {
+  background-color: rgba(29, 161, 242, 0.1);
+  color: rgba(29, 161, 242, 1);
 }
 
 #tabIcon {

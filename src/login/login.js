@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Form, Button } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
-import { withCookies, Cookies } from "react-cookie";
 
 class Login extends Component {
   constructor(props) {

@@ -23,7 +23,11 @@ class Media extends Component {
         {Object.keys(this.props.media).map((id) => {
           return (
             <div id="mediaContainer" key={id}>
-              <Image src={this.props.media[id]} id="imageUploaded" />
+              <Image
+                href={this.props.media[id]}
+                src={this.props.media[id]}
+                id="imageUploaded"
+              />
             </div>
           );
         })}

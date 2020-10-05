@@ -13,6 +13,7 @@ class Home extends Component {
       numTweets: 0,
       page: 0,
       currHeight: window.pageYOffset + window.innerHeight,
+      pathname: window.location.pathname,
     };
   }
 
@@ -87,7 +88,9 @@ class Home extends Component {
   render() {
     return (
       <div id="container">
-        <NavBar id="navbar" />
+        <div id="navbarContainer">
+          <NavBar pathname={this.state.pathname} />
+        </div>
         <div id="messagePanel">
           <Sender id="sender" postNewTweet={this.postNewTweet} />
           <div id="border" />

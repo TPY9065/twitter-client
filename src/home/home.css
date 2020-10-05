@@ -7,11 +7,6 @@
   margin: 0;
 }
 
-#navbar {
-  position: relative;
-  text-align: left;
-}
-
 #messagePanel {
   width: 600px;
   display: flex;
@@ -24,4 +19,10 @@
   height: 10px;
   width: 600px;
   background-color: rgb(230, 236, 240);
+}
+
+#navbarContainer {
+  position: sticky;
+  top: 0px;
+  height: 100vh;
 }
